@@ -29,15 +29,23 @@ Model.query.filter(Model.brand_name != 'Chevrolet').all()
 
 # Part 2.5: Advanced and Optional
 def search_brands_by_name(mystr):
-    pass
+    matching_brands = Brand.query.filter(db.or_(
+    									Brand.name.like('%'+mystr+'%'), 
+    									Brand.name==mystr)).all()
+    return matching_brands
 
 
 def get_models_between(start_year, end_year):
-    pass
+    matching_models = Model.query.filter(Model.year.between(start_year, end_year)).all()
 
 # Part 3: Discussion Questions
 
 # 1. What is the returned value and datatype of ``Brand.query.filter_by(name='Ford')``?
+"""This returns a query object of the BaseQuery class."""
 
 # 2. In your own words, what is an association table, and what *type* of relationship 
 # does an association table manage?
+"""An association table is used to manage many-to-many relationship types. 
+It creates a connection between two tables that have a many-to-many relationship 
+with each other.  The association table itself merely serves to provide the connection 
+and does not actually hold any unique information itself."""
